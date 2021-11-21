@@ -12,7 +12,6 @@ func main() {
 	var err error
 	var pass string
 
-	// pass := "GCO4MTkblTcXkqc3K6K7"
 	flag.StringVar(&action, "action", "", "decode | encode")
 	flag.StringVar(&str, "str", "", "string for decode | encode")
 	flag.Parse()
@@ -43,8 +42,8 @@ func decode(password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	for k, _ := range byteArray {
-		byteArray[k] = (((byteArray[k]) << (1)) | ((byteArray[k]) >> (8 - (1))))
+	for k := range byteArray {
+		byteArray[k] = byteArray[k]<<1 | byteArray[k]>>7
 	}
 	return string(byteArray), err
 }
@@ -53,8 +52,8 @@ func encode(password string) (string, error) {
 	var byteArray []byte
 	var err error
 	byteArray = []byte(password)
-	for k, _ := range byteArray {
-		byteArray[k] = (((byteArray[k]) >> (1)) | ((byteArray[k]) << (8 - (1))))
+	for k := range byteArray {
+		byteArray[k] = byteArray[k]>>1 | byteArray[k]<<7
 	}
 	password = base64.StdEncoding.EncodeToString(byteArray)
 	return password, err
