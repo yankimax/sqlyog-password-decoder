@@ -5,5 +5,5 @@ Encode password:
 `./sqlyog-password-decoder -str password -action encode`
 
 Compile:
-go build main.go
+`go build main.go`
 
